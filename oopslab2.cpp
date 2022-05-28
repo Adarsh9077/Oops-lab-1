@@ -13,9 +13,9 @@ return a+b;
 
 int main()
 {
-intx,y,res;
+int x,y,res;
 cout<<"Enter the number: ";
 cin>>x>>y;
 res = add(x,y);
-cout<<"Summation of two number is " <<res
+cout<<"Summation of two number is " <<res;
 }
