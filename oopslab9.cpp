@@ -1,3 +1,8 @@
+/* ******* LAB - 09 ******* */
+
+/*Create a class TIME to store time in hours and minutes. 
+Write a friend functions to add two Times objects.*/
+
 #include <iostream>
 using namespace std;
 class Shape
@@ -52,7 +57,6 @@ public:
 
 int main()
 {
-    cout << "I am Birender. My roll no. is 202077. " << endl;
     Triangle t1;
     Trapezoid tp1;
     Hexagon h1;
