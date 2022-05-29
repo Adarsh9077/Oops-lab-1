@@ -50,8 +50,8 @@ void TIME::print_time(void)
 //Driver function.
 int main(void)
 {
-    TIME t(1, 30);   //-time 1:30
-    TIME t1(4, 30);  //-time 4:30
+    TIME t(1, 40);   //-time 1:40
+    TIME t1(4, 20);  //-time 4:20
     t.print_time();
     t1.print_time();
     TIME t3;           //-time 0:0
