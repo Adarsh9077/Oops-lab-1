@@ -1,87 +1,62 @@
-/*Create 2 classes DM and DB .DM stores the distance in meters and centimeters
-and DB stores the distance in feet and inches. Write a program to add the object of
-DM with the object of DB classes.*/
+/* Create the class TIME to store time in hours and minutes .
+Write a friend function to add two TIME objects..*/
 #include <iostream>
-#include <stdlib.h>
 using namespace std;
-class DB;
-class DM;
 
-// class DM to recieve distance in meters and centimetres;
-class DM
+// class time is created with following  data members and member functions
+class TIME
 {
-    // Datamembers -to store distances in metres and centimetres respectively;
-    float metres;
-    float centimetres;
-    friend void add(DM, DB); // A friend function to add the object of DM with object of DB classes;
-public:
-    // A get function to take input in metres and centimetres ;
-    void get_DM(void)
-    {
-        cout << "Enter Distance in metres and centimetres >> \n";
-        cin >> metres >> centimetres;
-    }
-    // A show function to display distance in metres and centimetres;
-    void show_DM(void)
-    {
-        cout<<endl;
-        cout << "Metres = " << metres << endl;
-        cout << "Centimetres = " << centimetres << endl;
-    }
-};
-
-// class DB to recieve distance in feet and inches;
-class DB
-{
-    // Datamembers -to store distances in feet and inches respectively;
-    float feet;
-    float inches;
-    friend void add(DM, DB);
+private:
+//Data members - to store hours and minutes (of type integer).
+    int hours;        
+    int minutes;
+    //A friend function to add 2 given objects of class TIME ..
+    friend TIME add(TIME, TIME);
 
 public:
-    // A get function to take input in feet and inches ;
-    void get_DB(void)
+    TIME(int hr = 0, int min = 0) /*A parameterized constructor with some default values to initialize 
+    the data members */ 
     {
-        cout << "Enter Distance in feet and inches >> \n";
-        cin >> feet >> inches;
+        hours = hr;
+        minutes = min;
     }
-    // A show function to display distance in Feet and inches;
-    void show_DB(void)
-    {
-        cout<<endl;
-        cout << "Feet = " << feet << endl;
-        cout << "inchs = " << inches << endl;
-    }
+    void print_time(void);  // A function to print the time (in format HH:MM)..
 };
 
-// Defination of add function;
-void add(DM a, DB b) // a function recieves 2 arguments i.e. object of 'DM' class and object of 'DB' class;
+/*A friend function 'add' -takes 2 arguments of type object of TIME Class and adds them using their
+data members,stores them in another temporary Object of TIME class 'temp' and finally returns it.*/
+TIME add(TIME t1, TIME t2)
 {
-    DM d; // a temporary object 'd' is created;
+    TIME temp;
+    temp.hours = t1.hours + t2.hours; /*Adds the 'hours' of both passed object (t1 and t2) and assigns it 
+                                      to temp's datamember*/
+    temp.minutes = t1.minutes + t2.minutes;  /*Adds the 'minutes' of both passed object 
+                                             (t1 and t2) and assigns it;*/
 
-    int cm = (a.centimetres + a.metres * 100 + b.feet * 30.48 + b.inches * 2.54); /*This statement converts
-    every distance which is taken by the user (in metres,cm,ft,inch) to cm and adds them.  */
+    if (temp.minutes >= 60)    //Logic to compensate minutes overflow
+    {
+        temp.hours += temp.minutes / 60;
+        temp.minutes = temp.minutes % 60;
+    }
 
-    if (cm >= 100)  //A logic to compensate cm overflow and adds it to metres;
-    {
-        d.metres = cm / 100;
-        d.centimetres = cm % 100;
-    }
-    else
-    {
-        d.metres = 0;
-        d.centimetres = cm;
-    }
-    d.show_DM();  //show function is called to show the added result in metres and centimetres;
+    return temp;
 }
-// Driver function..
+void TIME::print_time(void)  
+{
+    //Simply prints the 'hours' and 'minutes'; 
+    cout << "HH:MM = " << hours << ":" << minutes << endl;
+}
+
+//Driver function.
 int main(void)
 {
-    DM d1;
-    d1.get_DM();
-    DB d2;
-    d2.get_DB();
-    add(d1, d2); // add function is called;
+    TIME t(1, 30);   //-time 1:30
+    TIME t1(4, 30);  //-time 4:30
+    t.print_time();
+    t1.print_time();
+    TIME t3;           //-time 0:0
+    t3 = add(t, t1);   //  -time 6:00 (added time)
+    t3.print_time();
 
     return 0;
 }
